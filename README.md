@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# spotify dashboard
 
-## Getting Started
+a spotify dashboard that displays your top tracks and artists as well as recently played songs. it's built with:
 
-First, run the development server:
+- [next.js](https://nextjs.org/)
+- [spotify web api](https://developer.spotify.com/documentation/web-api/)
+- [tailwind](https://tailwindcss.com/)
 
-```bash
-npm run dev
-# or
-yarn dev
+---
+
+## set up
+
+### spotify api
+
+1. follow [documentation](https://developer.spotify.com/documentation/general/guides/app-settings/#register-your-app) to register your spotify application. this is where you'll generate your `SPOTIFY_CLIENT_ID` and `SPOTIFY_CLIENT_SECRET`
+2. white list the redirect uri you'll use. see [documentation](https://developer.spotify.com/documentation/general/guides/app-settings/#whitelist-a-redirect-uri) for more info
+3. create a `.env.local` at the project root with the following:
+
+``` js 
+SPOTIFY_CLIENT_ID=YOUR_CLIENT_ID
+SPOTIFY_CLIENT_SECRET=YOUR_CLIENT_SECRET
+REDIRECT_URI= // redirect uri. this is a route that receives a code from the spotify api and provides a token to make subsequent api calls
+SCOPE="user-read-recently-played user-top-read" // you can add scope here if you're going to fork or extend this repo
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### nextjs
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+this is a pretty standard next.js project:
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+``` js
+yarn // install dependencies
+yarn dev // run in development
+```
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+### get to the dashboard
 
-## Learn More
+Click the 'login' button from the index and you're off.
 
-To learn more about Next.js, take a look at the following resources:
+## motivation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/import?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+i wanted to build a weekly aggregator that gave you up(to-date / dated) information on your spotify play history. however, the [recently played](https://developer.spotify.com/documentation/web-api/reference/#endpoint-get-recently-played) endpoint provided only returns the *latest* 50 songs. in the meantime, i wanted to experiment with tialwind and react's context api, so i built this dashboard. here's hoping that a new version of that endpoint gets released in the future.
